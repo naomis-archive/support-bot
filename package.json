@@ -7,7 +7,7 @@
     "prebuild": "rm -rf ./prod",
     "build": "tsc",
     "lint": "eslint src",
-    "start": "node ./prod/index.js",
+    "start": "node -r dotenv/config ./prod/index.js",
     "test": "echo 'no tests yet'"
   },
   "repository": {
@@ -45,6 +45,8 @@
     "@sentry/integrations": "^6.10.0",
     "@sentry/node": "^6.10.0",
     "discord.js": "^13.0.0-dev.5e433b5.1627473836",
+    "dotenv": "^10.0.0",
+    "spinnies": "^0.5.1",
     "winston": "^3.3.3"
   }
 }
