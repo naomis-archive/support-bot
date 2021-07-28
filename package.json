@@ -1,0 +1,23 @@
+{
+  "name": "support-bot",
+  "version": "0.0.0",
+  "description": "A support bot for my server",
+  "main": "./prod/index.js",
+  "scripts": {
+    "test": "echo 'no tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhcarrigan/support-bot.git"
+  },
+  "keywords": [
+    "typescript",
+    "discord.js"
+  ],
+  "author": "Nicholas Carrigan",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nhcarrigan/support-bot/issues"
+  },
+  "homepage": "https://github.com/nhcarrigan/support-bot#readme"
+}
