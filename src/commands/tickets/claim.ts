@@ -28,10 +28,9 @@ export const claimHandler: ButtonHandler = async (Bot, interaction) => {
       return;
     }
 
-    if (
-      !(member as GuildMember).roles.resolve(supportRole) &&
-      member.user.id !== Bot.botOwner
-    ) {
+    const isSupport = (member as GuildMember).roles.cache.has(supportRole.id);
+
+    if (!isSupport && member.user.id !== Bot.botOwner) {
       await interaction.editReply({
         content: "Only support members can claim a ticket.",
       });
