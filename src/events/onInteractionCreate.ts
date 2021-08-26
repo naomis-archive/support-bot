@@ -1,5 +1,6 @@
 import { Interaction } from "discord.js";
 import { CommandList } from "../commands/CommandList";
+import { claimHandler } from "../commands/tickets/claim";
 import { ticketHandler } from "../commands/tickets/ticket";
 import { BotInt } from "../interfaces/BotInt";
 
@@ -21,6 +22,9 @@ export const onInteractionCreate = async (
     switch (id) {
       case "ticket":
         await ticketHandler(Bot, interaction);
+        return;
+      case "claim":
+        await claimHandler(Bot, interaction);
         return;
     }
   }
