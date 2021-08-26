@@ -1,77 +1,74 @@
-import { CommandInt } from "../../interfaces/CommandInt";
-import { ticketClaimLog } from "../../logs/ticketClaimLog";
+import {
+  GuildMember,
+  Message,
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
+} from "discord.js";
+import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
-export const claim: CommandInt = {
-  name: "claim",
-  run: async (Bot, message) => {
-    try {
-      if (!message.guild) {
-        return;
-      }
+export const claimHandler: ButtonHandler = async (Bot, interaction) => {
+  try {
+    await interaction.deferReply({ ephemeral: true });
+    const { guild, message, member } = interaction;
+    const { embeds } = message;
 
-      if (
-        message.channel.type !== "GUILD_PUBLIC_THREAD" ||
-        !message.channel.name.startsWith("ticket")
-      ) {
-        await message.channel.send("You can only do this in ticket channels.");
-        return;
-      }
-      await message.guild.roles.fetch();
-
-      const supportRole = message.guild.roles.cache.find(
-        (role) => role.name.toLowerCase() === "advisor"
-      );
-
-      if (!supportRole) {
-        await message.channel.send("I cannot find your support role");
-        return;
-      }
-
-      const authorIsSupport = message.member?.roles.cache.has(
-        `${supportRole.id}`
-      );
-
-      if (!authorIsSupport) {
-        await message.channel.send("Only support members can claim tickets.");
-        return;
-      }
-
-      const ticketEmbedMessage = (await message.channel.messages.fetch())
-        .sort((a, b) => a.createdTimestamp - b.createdTimestamp)
-        .map((el) => el)[1];
-
-      if (!ticketEmbedMessage || !ticketEmbedMessage.embeds.length) {
-        await message.channel.send("I cannot find the ticket embed.");
-      }
-
-      const ticketEmbed = ticketEmbedMessage.embeds[0];
-
-      const claimed = ticketEmbed.fields.find(
-        (el) => el.name === "Claimed by:"
-      );
-
-      if (!claimed || claimed?.value !== "none") {
-        await message.channel.send("This ticket has already been claimed!");
-        return;
-      }
-
-      claimed.value = `<@!${message.author.id}>`;
-
-      await ticketEmbedMessage.edit({ embeds: [ticketEmbed] });
-      await message.delete();
-      await ticketClaimLog(Bot, {
-        type: "",
-        name: message.channel.name,
-        project: "",
-        user: `${message.author.id}`,
-        details: "",
-        claimed: `<@!${message.author.id}>`,
-        resolution: "none",
-        resolved: false,
+    if (!guild || !member) {
+      await interaction.editReply({
+        content: "Error finding the guild!",
       });
-    } catch (err) {
-      errorHandler("claim", err);
+      return;
     }
-  },
+
+    const supportRole = await guild.roles.fetch(Bot.supportRole);
+
+    if (!supportRole) {
+      await interaction.editReply("Cannot find support role!");
+      return;
+    }
+
+    const isSupport = (member as GuildMember).roles.cache.has(supportRole.id);
+
+    if (!isSupport && member.user.id !== Bot.botOwner) {
+      await interaction.editReply({
+        content: "Only support members can claim a ticket.",
+      });
+      return;
+    }
+
+    const ticketEmbed = embeds[0] as MessageEmbed;
+    ticketEmbed.setFields([
+      {
+        name: "Claimed by:",
+        value: `<@${member.user.id}>`,
+      },
+    ]);
+
+    const claimButton = new MessageButton()
+      .setCustomId("claim")
+      .setStyle("SUCCESS")
+      .setLabel("Claim this ticket!")
+      .setEmoji("✋")
+      .setDisabled(true);
+    const closeButton = new MessageButton()
+      .setCustomId("close")
+      .setStyle("DANGER")
+      .setLabel("Close this ticket!")
+      .setEmoji("🗑️");
+
+    const row = new MessageActionRow().addComponents([
+      claimButton,
+      closeButton,
+    ]);
+
+    await (message as Message).edit({
+      embeds: [ticketEmbed],
+      components: [row],
+    });
+
+    await interaction.editReply("You have been assigned this ticket.");
+  } catch (err) {
+    errorHandler("claim handler", err);
+  }
 };

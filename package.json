@@ -1,6 +1,6 @@
 {
   "name": "support-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A support bot for my server",
   "main": "./prod/index.js",
   "scripts": {
@@ -42,11 +42,12 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
     "@sentry/integrations": "^6.10.0",
     "@sentry/node": "^6.10.0",
-    "discord.js": "^13.0.0-dev.5e433b5.1627473836",
+    "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "spinnies": "^0.5.1",
     "winston": "^3.3.3"
   }
 }

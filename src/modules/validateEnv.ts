@@ -2,16 +2,22 @@ import { BotInt } from "../interfaces/BotInt";
 
 export const validateEnv = async (Bot: BotInt): Promise<boolean> => {
   const token = process.env.DISCORD_TOKEN;
-  const whId = process.env.WH_ID;
-  const whToken = process.env.WH_TOKEN;
+  const whUrl = process.env.WH_URL;
+  const botHome = process.env.GUILD_ID;
+  const botOwner = process.env.OWNER_ID;
+  const category = process.env.TICKET_CATEGORY;
+  const supportRole = process.env.SUPPORT_ROLE;
 
-  if (!token || !whId || !whToken) {
+  if (!token || !whUrl || !botHome || !botOwner || !category || !supportRole) {
     return false;
   }
 
   Bot.discordToken = token;
-  Bot.whId = `${BigInt(whId)}`;
-  Bot.whToken = whToken;
+  Bot.whUrl = whUrl;
+  Bot.botHome = botHome;
+  Bot.botOwner = botOwner;
+  Bot.category = category;
+  Bot.supportRole = supportRole;
 
   return true;
 };

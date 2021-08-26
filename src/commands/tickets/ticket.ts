@@ -1,55 +1,93 @@
-import { MessageEmbed } from "discord.js";
-import { TicketTypes } from "../../config/TicketTypes";
-import { CommandInt } from "../../interfaces/CommandInt";
-import { ticketCreateLog } from "../../logs/ticketCreateLog";
+import {
+  GuildChannelCreateOptions,
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
+  TextChannel,
+} from "discord.js";
+import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
-export const ticket: CommandInt = {
-  name: "ticket",
-  run: async (Bot, message) => {
-    try {
-      const [, type, project, ...description] = message.content.split(/\s+/);
+export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
+  try {
+    await interaction.deferReply({ ephemeral: true });
 
-      if (!message.guild) {
-        return;
-      }
+    const { guild, user } = interaction;
 
-      if (!type || !TicketTypes.includes(type)) {
-        await message.channel.send(
-          "That is not a valid ticket type. Valid types are:\n" +
-            TicketTypes.join(", ")
-        );
-        return;
-      }
-
-      const ticketEmbed = new MessageEmbed();
-      ticketEmbed.setColor("GREEN");
-      ticketEmbed.setTitle(`${message.author.username}'s Ticket`);
-      ticketEmbed.addField("Ticket Type", type, true);
-      ticketEmbed.addField("Related project", project, true);
-      ticketEmbed.setDescription(description.join(" "));
-      ticketEmbed.addField("User ID", message.author.id, true);
-      ticketEmbed.addField("Claimed by:", "none", true);
-
-      const ticketThread = await message.startThread(
-        `ticket-${message.author.username}`,
-        1440
-      );
-
-      await ticketThread.send({ embeds: [ticketEmbed] });
-      await message.delete();
-      await ticketCreateLog(Bot, {
-        type,
-        project,
-        name: ticketThread.name,
-        user: `<@!${message.author.id}>`,
-        details: description.join(" "),
-        claimed: "none",
-        resolution: "none",
-        resolved: false,
-      });
-    } catch (err) {
-      errorHandler("ticket command", err);
+    if (!guild) {
+      await interaction.editReply("Guild record error.");
+      return;
     }
-  },
+
+    const ticketCategory = await guild.channels.fetch(Bot.category);
+
+    if (!ticketCategory || ticketCategory.type !== "GUILD_CATEGORY") {
+      await interaction.editReply("Cannot find ticket category!");
+      return;
+    }
+
+    const supportRole = await guild.roles.fetch(Bot.supportRole);
+
+    if (!supportRole) {
+      await interaction.editReply("Cannot find support role!");
+      return;
+    }
+
+    const options: GuildChannelCreateOptions = {
+      parent: ticketCategory.id,
+      type: "GUILD_TEXT",
+      permissionOverwrites: [
+        {
+          id: guild.id,
+          deny: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+        {
+          id: user.id,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+        {
+          id: supportRole.id,
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+        {
+          id: Bot.user?.id || "oh no",
+          allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        },
+      ],
+    };
+
+    const ticketChannel = (await guild.channels.create(
+      `ticket-${user.username}`,
+      options
+    )) as TextChannel;
+
+    const claimButton = new MessageButton()
+      .setCustomId("claim")
+      .setStyle("SUCCESS")
+      .setLabel("Claim this ticket!")
+      .setEmoji("✋");
+    const closeButton = new MessageButton()
+      .setCustomId("close")
+      .setStyle("DANGER")
+      .setLabel("Close this ticket!")
+      .setEmoji("🗑️");
+
+    const row = new MessageActionRow().addComponents([
+      claimButton,
+      closeButton,
+    ]);
+
+    const ticketEmbed = new MessageEmbed();
+    ticketEmbed.setTitle("Ticket Created");
+    ticketEmbed.setDescription(
+      `<@!${user.id}>, here is your private ticket channel!`
+    );
+
+    await ticketChannel.send({ embeds: [ticketEmbed], components: [row] });
+    await interaction.editReply(
+      "Your ticket channel has been created! Please head there and describe the issue you are having."
+    );
+  } catch (err) {
+    errorHandler("ticket handler", err);
+  }
 };
