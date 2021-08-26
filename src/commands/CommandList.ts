@@ -1,6 +1,4 @@
 import { CommandInt } from "../interfaces/CommandInt";
-import { claim } from "./tickets/claim";
-import { close } from "./tickets/close";
-import { ticket } from "./tickets/ticket";
+import { start } from "./tickets/start";
 
-export const CommandList: CommandInt[] = [ticket, claim, close];
+export const CommandList: CommandInt[] = [start];

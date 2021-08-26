@@ -1,7 +1,11 @@
-import { Message } from "discord.js";
+import {
+  SlashCommandBuilder,
+  SlashCommandSubcommandBuilder,
+} from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 import { BotInt } from "./BotInt";
 
 export interface CommandInt {
-  name: string;
-  run: (Bot: BotInt, message: Message) => Promise<void>;
+  data: SlashCommandBuilder | SlashCommandSubcommandBuilder;
+  run: (Bot: BotInt, interaction: CommandInteraction) => Promise<void>;
 }
