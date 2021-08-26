@@ -5,8 +5,10 @@ export const validateEnv = async (Bot: BotInt): Promise<boolean> => {
   const whUrl = process.env.WH_URL;
   const botHome = process.env.GUILD_ID;
   const botOwner = process.env.OWNER_ID;
+  const category = process.env.TICKET_CATEGORY;
+  const supportRole = process.env.SUPPORT_ROLE;
 
-  if (!token || !whUrl || !botHome || !botOwner) {
+  if (!token || !whUrl || !botHome || !botOwner || !category || !supportRole) {
     return false;
   }
 
@@ -14,6 +16,8 @@ export const validateEnv = async (Bot: BotInt): Promise<boolean> => {
   Bot.whUrl = whUrl;
   Bot.botHome = botHome;
   Bot.botOwner = botOwner;
+  Bot.category = category;
+  Bot.supportRole = supportRole;
 
   return true;
 };

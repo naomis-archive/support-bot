@@ -5,4 +5,6 @@ export interface BotInt extends Client {
   logHook: WebhookClient;
   botHome: string;
   botOwner: string;
+  category: string;
+  supportRole: string;
 }
