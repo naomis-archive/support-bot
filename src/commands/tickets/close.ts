@@ -1,7 +1,20 @@
-import { GuildMember, MessageEmbed, TextChannel } from "discord.js";
+import {
+  CommandInteraction,
+  GuildMember,
+  MessageEmbed,
+  TextChannel,
+} from "discord.js";
+
+import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
+/**
+ * Handles closing a ticket.
+ *
+ * @param {BotInt} Bot The bot instance.
+ * @param {CommandInteraction} interaction The resulting interaction from clicking the close button.
+ */
 export const closeHandler: ButtonHandler = async (Bot, interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });

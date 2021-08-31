@@ -1,13 +1,22 @@
 import {
+  CommandInteraction,
   GuildMember,
   Message,
   MessageActionRow,
   MessageButton,
   MessageEmbed,
 } from "discord.js";
+
+import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
+/**
+ * Handles the process of claiming a ticket.
+ *
+ * @param {BotInt} Bot The bot object.
+ * @param {CommandInteraction} interaction The resulting interaction from clicking the claim button.
+ */
 export const claimHandler: ButtonHandler = async (Bot, interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });

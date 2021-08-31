@@ -1,9 +1,16 @@
 import { REST } from "@discordjs/rest";
 import { APIApplicationCommandOption, Routes } from "discord-api-types/v9";
+
 import { CommandList } from "../commands/CommandList";
 import { BotInt } from "../interfaces/BotInt";
 import { logHandler } from "../utils/logHandler";
 
+/**
+ * Handles the READY event, loads the slash commands to the
+ * home guild.
+ *
+ * @param {BotInt} Bot The bot instance.
+ */
 export const onReady = async (Bot: BotInt): Promise<void> => {
   logHandler.log("debug", "Bot is connected to Discord!");
 

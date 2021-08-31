@@ -1,6 +1,12 @@
 import { BotInt } from "../interfaces/BotInt";
 
-export const validateEnv = async (Bot: BotInt): Promise<boolean> => {
+/**
+ * Validates that all environment variables are present.
+ *
+ * @param {BotInt} Bot The bot instance.
+ * @returns {boolean} True if the variables are all present, false if any are missing.
+ */
+export const validateEnv = (Bot: BotInt): boolean => {
   const token = process.env.DISCORD_TOKEN;
   const whUrl = process.env.WH_URL;
   const botHome = process.env.GUILD_ID;

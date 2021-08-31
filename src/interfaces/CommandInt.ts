@@ -3,6 +3,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+
 import { BotInt } from "./BotInt";
 
 export interface CommandInt {

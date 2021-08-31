@@ -40,6 +40,8 @@
     "@sentry/node": "^6.10.0",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsdoc": "^36.0.8",
     "winston": "^3.3.3"
   }
 }
