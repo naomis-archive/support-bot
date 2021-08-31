@@ -2,7 +2,12 @@ import { onInteractionCreate } from "../events/onInteractionCreate";
 import { onReady } from "../events/onReady";
 import { BotInt } from "../interfaces/BotInt";
 
-export const handleEvents = async (Bot: BotInt): Promise<void> => {
+/**
+ * Registers the Discord event listeners.
+ *
+ * @param {BotInt} Bot The bot instance.
+ */
+export const handleEvents = (Bot: BotInt): void => {
   Bot.on(
     "interactionCreate",
     async (interaction) => await onInteractionCreate(Bot, interaction)

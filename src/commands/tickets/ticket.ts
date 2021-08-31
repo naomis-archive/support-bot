@@ -1,13 +1,22 @@
 import {
+  CommandInteraction,
   GuildChannelCreateOptions,
   MessageActionRow,
   MessageButton,
   MessageEmbed,
   TextChannel,
 } from "discord.js";
+
+import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
+/**
+ * Handles the creation of a new ticket.
+ *
+ * @param {BotInt} Bot The bot instance.
+ * @param {CommandInteraction} interaction The interaction resulting from the new ticket button.
+ */
 export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });

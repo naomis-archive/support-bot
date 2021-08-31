@@ -1,10 +1,11 @@
-import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
+import * as Sentry from "@sentry/node";
 import { Client, WebhookClient } from "discord.js";
+
 import { IntentOptions } from "./config/IntentOptions";
-import { validateEnv } from "./modules/validateEnv";
 import { BotInt } from "./interfaces/BotInt";
 import { handleEvents } from "./modules/handleEvents";
+import { validateEnv } from "./modules/validateEnv";
 import { logHandler } from "./utils/logHandler";
 
 Sentry.init({

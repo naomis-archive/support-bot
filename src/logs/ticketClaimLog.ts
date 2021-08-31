@@ -1,8 +1,15 @@
 import { MessageEmbed } from "discord.js";
+
 import { BotInt } from "../interfaces/BotInt";
 import { TicketDetailsInt } from "../interfaces/TicketDetailsInt";
 import { errorHandler } from "../utils/errorHandler";
 
+/**
+ * Sends a log when a ticket is claimed.
+ *
+ * @param {BotInt} Bot The bot instance.
+ * @param {TicketDetailsInt} details The details of the claimed ticket.
+ */
 export const ticketClaimLog = async (
   Bot: BotInt,
   details: TicketDetailsInt
