@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf ./prod",
     "build": "tsc",
-    "lint": "eslint src",
+    "lint": "eslint src --max-warnings 0",
     "start": "node -r dotenv/config ./prod/index.js",
     "test": "echo 'no tests yet'"
   },
@@ -40,8 +40,8 @@
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "@sentry/integrations": "^6.11.0",
-    "@sentry/node": "^6.11.0",
+    "@sentry/integrations": "^6.12.0",
+    "@sentry/node": "^6.12.0",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "eslint-plugin-import": "^2.24.2",
