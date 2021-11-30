@@ -7,6 +7,7 @@ import {
 
 import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
+import { generateLogs } from "../../modules/generateLogs";
 import { errorHandler } from "../../utils/errorHandler";
 
 /**
@@ -20,7 +21,7 @@ export const closeHandler: ButtonHandler = async (Bot, interaction) => {
     await interaction.deferReply({ ephemeral: true });
     const { guild, member, channel } = interaction;
 
-    if (!guild || !member) {
+    if (!guild || !member || !channel) {
       await interaction.editReply({
         content: "Error finding the guild!",
       });
@@ -50,8 +51,10 @@ export const closeHandler: ButtonHandler = async (Bot, interaction) => {
       "User",
       (channel as TextChannel)?.name.split("-").slice(1).join("-") || "unknown"
     );
-    await Bot.logHook.send({ embeds: [logEmbed] });
-    await interaction.channel?.delete();
+
+    const logFile = await generateLogs(Bot, channel.id);
+    await Bot.logHook.send({ embeds: [logEmbed], files: [logFile] });
+    await channel.delete();
   } catch (err) {
     errorHandler("close handler", err);
   }

@@ -8,4 +8,5 @@ export interface BotInt extends Client {
   botOwner: string;
   category: string;
   supportRole: string;
+  ticketLogs: { [key: string]: string };
 }
