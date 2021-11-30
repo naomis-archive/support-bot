@@ -24,6 +24,7 @@ export const validateEnv = (Bot: BotInt): boolean => {
   Bot.botOwner = botOwner;
   Bot.category = category;
   Bot.supportRole = supportRole;
+  Bot.ticketLogs = {};
 
   return true;
 };

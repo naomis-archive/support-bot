@@ -9,6 +9,7 @@ import {
 
 import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
+import { createLogFile } from "../../modules/createLogFile";
 import { errorHandler } from "../../utils/errorHandler";
 
 /**
@@ -91,6 +92,8 @@ export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
     ticketEmbed.setDescription(
       `<@!${user.id}>, here is your private ticket channel!`
     );
+
+    await createLogFile(Bot, ticketChannel.id);
 
     await ticketChannel.send({ embeds: [ticketEmbed], components: [row] });
     await interaction.editReply(

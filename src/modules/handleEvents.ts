@@ -1,4 +1,5 @@
 import { onInteractionCreate } from "../events/onInteractionCreate";
+import { onMessage } from "../events/onMessage";
 import { onReady } from "../events/onReady";
 import { BotInt } from "../interfaces/BotInt";
 
@@ -12,6 +13,8 @@ export const handleEvents = (Bot: BotInt): void => {
     "interactionCreate",
     async (interaction) => await onInteractionCreate(Bot, interaction)
   );
+
+  Bot.on("messageCreate", async (message) => await onMessage(Bot, message));
 
   Bot.on("ready", async () => await onReady(Bot));
 };
