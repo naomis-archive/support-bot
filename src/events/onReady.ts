@@ -17,8 +17,8 @@ export const onReady = async (Bot: BotInt): Promise<void> => {
   const rest = new REST({ version: "9" }).setToken(Bot.discordToken);
   const commandData: {
     name: string;
-    description: string;
-    options: APIApplicationCommandOption[];
+    description?: string;
+    options?: APIApplicationCommandOption[];
   }[] = [];
 
   CommandList.forEach((command) => commandData.push(command.data.toJSON()));
