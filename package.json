@@ -43,7 +43,7 @@
     "@sentry/integrations": "^6.15.0",
     "@sentry/node": "^6.15.0",
     "discord.js": "^13.3.1",
-    "dotenv": "^11.0.0",
+    "dotenv": "^13.0.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsdoc": "^37.1.0",
     "winston": "^3.3.3"
