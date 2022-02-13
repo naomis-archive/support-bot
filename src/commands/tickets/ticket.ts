@@ -100,6 +100,6 @@ export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
       "Your ticket channel has been created! Please head there and describe the issue you are having."
     );
   } catch (err) {
-    errorHandler("ticket handler", err);
+    await errorHandler("ticket handler", err);
   }
 };

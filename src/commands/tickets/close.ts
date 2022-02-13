@@ -56,6 +56,6 @@ export const closeHandler: ButtonHandler = async (Bot, interaction) => {
     await Bot.logHook.send({ embeds: [logEmbed], files: [logFile] });
     await channel.delete();
   } catch (err) {
-    errorHandler("close handler", err);
+    await errorHandler("close handler", err);
   }
 };

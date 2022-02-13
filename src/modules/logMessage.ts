@@ -33,6 +33,6 @@ export const logMessage = async (
       logFile + parsedString
     );
   } catch (err) {
-    errorHandler("message logger", err);
+    await errorHandler("message logger", err);
   }
 };

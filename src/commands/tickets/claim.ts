@@ -78,6 +78,6 @@ export const claimHandler: ButtonHandler = async (Bot, interaction) => {
 
     await interaction.editReply("You have been assigned this ticket.");
   } catch (err) {
-    errorHandler("claim handler", err);
+    await errorHandler("claim handler", err);
   }
 };
