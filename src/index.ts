@@ -21,7 +21,7 @@ Sentry.init({
 const initialiseBot = async () => {
   const Bot = new Client({ intents: IntentOptions }) as BotInt;
 
-  const validEnv = await validateEnv(Bot);
+  const validEnv = validateEnv(Bot);
 
   if (!validEnv) {
     logHandler.log("error", "Missing environment variables.");
@@ -32,7 +32,7 @@ const initialiseBot = async () => {
 
   Bot.logHook = new WebhookClient({ url: Bot.whUrl });
 
-  await handleEvents(Bot);
+  handleEvents(Bot);
   logHandler.log("debug", "Event listeners loaded.");
 
   await Bot.login(Bot.discordToken);

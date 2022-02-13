@@ -25,6 +25,6 @@ export const ticketCreateLog = async (
 
     await Bot.logHook.send({ embeds: [ticketCreateEmbed] });
   } catch (err) {
-    errorHandler("ticket create log", err);
+    await errorHandler("ticket create log", err);
   }
 };

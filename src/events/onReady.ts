@@ -1,5 +1,6 @@
 import { REST } from "@discordjs/rest";
 import { APIApplicationCommandOption, Routes } from "discord-api-types/v9";
+import { WebhookClient } from "discord.js";
 
 import { CommandList } from "../commands/CommandList";
 import { BotInt } from "../interfaces/BotInt";
@@ -31,4 +32,8 @@ export const onReady = async (Bot: BotInt): Promise<void> => {
   );
 
   logHandler.log("debug", "registered commands");
+
+  const hook = new WebhookClient({ url: process.env.DEBUG_HOOK as string });
+
+  await hook.send("Ticket bot online!");
 };

@@ -22,6 +22,6 @@ export const createLogFile = async (
       `[${new Date().toLocaleString()}] - **TICKET CREATED**\n`
     );
   } catch (err) {
-    errorHandler("log file creation", err);
+    await errorHandler("log file creation", err);
   }
 };

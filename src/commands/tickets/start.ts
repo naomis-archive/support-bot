@@ -35,7 +35,7 @@ export const start: CommandInt = {
 
       await interaction.reply({ embeds: [embed], components: [row] });
     } catch (err) {
-      errorHandler("start", err);
+      await errorHandler("start", err);
     }
   },
 };
