@@ -4,7 +4,7 @@ A ticket system I rolled for my server.
 
 ## Live Version
 
-[View the bot in my server.](https://links.nhcarrigan.com/discord)
+[View the bot in my server.](https://chat.nhcarrigan.com)
 
 ## Feedback and Bugs
 
@@ -30,4 +30,4 @@ The full license terms may be viewed in the [LICENSE.md file](./LICENSE.md)
 
 ## Contact
 
-We may be contacted through our [Chat Server](http://chat.nhcarrigan.com) or via [email form](https://contact.nhcarrigan.com).
+We may be contacted through our [Chat Server](http://chat.nhcarrigan.com) or via `contact@nhcarrigan.com`.
