@@ -18,8 +18,8 @@ export const startServer = async () => {
 
   const httpServer = http.createServer(app);
 
-  httpServer.listen(5080, () => {
-    logHandler.log("http", "http server listening on port 5080");
+  httpServer.listen(6080, () => {
+    logHandler.log("http", "http server listening on port 6080");
   });
 
   if (process.env.NODE_ENV === "production") {
@@ -44,8 +44,8 @@ export const startServer = async () => {
 
     const httpsServer = https.createServer(credentials, app);
 
-    httpsServer.listen(5443, () => {
-      logHandler.log("http", "https server listening on port 5443");
+    httpsServer.listen(6443, () => {
+      logHandler.log("http", "https server listening on port 6443");
     });
   }
 };
