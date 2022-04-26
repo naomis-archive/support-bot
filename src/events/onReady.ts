@@ -1,5 +1,9 @@
 import { REST } from "@discordjs/rest";
-import { APIApplicationCommandOption, Routes } from "discord-api-types/v9";
+import {
+  RESTPostAPIApplicationCommandsJSONBody,
+  APIApplicationCommandSubcommandOption,
+  Routes,
+} from "discord-api-types/v10";
 import { WebhookClient } from "discord.js";
 
 import { CommandList } from "../commands/CommandList";
@@ -16,11 +20,10 @@ export const onReady = async (Bot: BotInt): Promise<void> => {
   logHandler.log("debug", "Bot is connected to Discord!");
 
   const rest = new REST({ version: "9" }).setToken(Bot.discordToken);
-  const commandData: {
-    name: string;
-    description?: string;
-    options?: APIApplicationCommandOption[];
-  }[] = [];
+  const commandData: (
+    | RESTPostAPIApplicationCommandsJSONBody
+    | APIApplicationCommandSubcommandOption
+  )[] = [];
 
   CommandList.forEach((command) => commandData.push(command.data.toJSON()));
   await rest.put(
