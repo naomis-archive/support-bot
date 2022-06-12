@@ -20,7 +20,7 @@ export const ticketModal = async (
   Bot: BotInt,
   interaction: ModalSubmitInteraction
 ) => {
-  await interaction.deferReply();
+  await interaction.deferReply({ ephemeral: true });
   const { guild, user } = interaction;
   const reason = interaction.fields.getTextInputValue("reason");
 
