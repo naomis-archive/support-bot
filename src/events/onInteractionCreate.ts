@@ -4,6 +4,7 @@ import { CommandList } from "../commands/CommandList";
 import { claimHandler } from "../commands/tickets/claim";
 import { closeHandler } from "../commands/tickets/close";
 import { ticketHandler } from "../commands/tickets/ticket";
+import { ticketModal } from "../commands/tickets/ticketModal";
 import { BotInt } from "../interfaces/BotInt";
 
 /**
@@ -24,6 +25,10 @@ export const onInteractionCreate = async (
         break;
       }
     }
+  }
+
+  if (interaction.isModalSubmit()) {
+    await ticketModal(Bot, interaction);
   }
 
   if (interaction.isButton()) {
