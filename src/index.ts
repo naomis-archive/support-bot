@@ -6,7 +6,6 @@ import { IntentOptions } from "./config/IntentOptions";
 import { BotInt } from "./interfaces/BotInt";
 import { handleEvents } from "./modules/handleEvents";
 import { validateEnv } from "./modules/validateEnv";
-import { startServer } from "./server/server";
 import { logHandler } from "./utils/logHandler";
 
 Sentry.init({
@@ -34,7 +33,6 @@ const initialiseBot = async () => {
   Bot.logHook = new WebhookClient({ url: Bot.whUrl });
 
   handleEvents(Bot);
-  await startServer();
   logHandler.log("debug", "Event listeners loaded.");
 
   await Bot.login(Bot.discordToken);
