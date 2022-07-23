@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { Colors, EmbedBuilder } from "discord.js";
 
 import { BotInt } from "../interfaces/BotInt";
 import { TicketDetailsInt } from "../interfaces/TicketDetailsInt";
@@ -15,13 +15,17 @@ export const ticketCloseLog = async (
   details: TicketDetailsInt
 ): Promise<void> => {
   try {
-    const ticketCloseEmbed = new MessageEmbed();
-    ticketCloseEmbed.setColor(details.resolved ? "DARK_GREEN" : "DARK_RED");
+    const ticketCloseEmbed = new EmbedBuilder();
+    ticketCloseEmbed.setColor(
+      details.resolved ? Colors.DarkGreen : Colors.DarkRed
+    );
     ticketCloseEmbed.setTitle("Ticket Closed");
     ticketCloseEmbed.setDescription(`${details.name} has been closed.`);
-    ticketCloseEmbed.addField("Closed by:", details.claimed, true);
-    ticketCloseEmbed.addField("Resolved?", `${details.resolved}`, true);
-    ticketCloseEmbed.addField("Resolution:", details.resolution);
+    ticketCloseEmbed.addFields([
+      { name: "Claimed by:", value: details.claimed, inline: true },
+      { name: "Resolved:", value: String(details.resolved), inline: true },
+      { name: "Resolution:", value: details.resolution, inline: true },
+    ]);
 
     await Bot.logHook.send({ embeds: [ticketCloseEmbed] });
   } catch (err) {

@@ -1,7 +1,7 @@
 import {
   CommandInteraction,
   GuildMember,
-  MessageEmbed,
+  EmbedBuilder,
   TextChannel,
 } from "discord.js";
 
@@ -44,13 +44,15 @@ export const closeHandler: ButtonHandler = async (Bot, interaction) => {
       return;
     }
 
-    const logEmbed = new MessageEmbed();
+    const logEmbed = new EmbedBuilder();
     logEmbed.setTitle("Ticket Closed");
     logEmbed.setDescription(`Ticket closed by <@!${member.user.id}>`);
-    logEmbed.addField(
-      "User",
-      (channel as TextChannel)?.name.split("-").slice(1).join("-") || "unknown"
-    );
+    logEmbed.addFields({
+      name: "User",
+      value:
+        (channel as TextChannel)?.name.split("-").slice(1).join("-") ||
+        "unknown",
+    });
 
     const logFile = await generateLogs(Bot, channel.id);
     await Bot.logHook.send({ embeds: [logEmbed], files: [logFile] });

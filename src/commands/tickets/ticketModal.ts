@@ -1,9 +1,12 @@
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ChannelType,
+  EmbedBuilder,
   GuildChannelCreateOptions,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
   ModalSubmitInteraction,
+  PermissionFlagsBits,
   TextChannel,
 } from "discord.js";
 
@@ -31,7 +34,7 @@ export const ticketModal = async (
 
   const ticketCategory = await guild.channels.fetch(Bot.category);
 
-  if (!ticketCategory || ticketCategory.type !== "GUILD_CATEGORY") {
+  if (!ticketCategory || ticketCategory.type !== ChannelType.GuildCategory) {
     await interaction.editReply("Cannot find ticket category!");
     return;
   }
@@ -45,46 +48,59 @@ export const ticketModal = async (
 
   const options: GuildChannelCreateOptions = {
     parent: ticketCategory.id,
-    type: "GUILD_TEXT",
+    name: `ticket-${user.username}`,
+    type: ChannelType.GuildText,
     permissionOverwrites: [
       {
         id: guild.id,
-        deny: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        deny: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+        ],
       },
       {
         id: user.id,
-        allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+        ],
       },
       {
         id: supportRole.id,
-        allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+        ],
       },
       {
         id: Bot.user?.id || "oh no",
-        allow: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+        ],
       },
     ],
   };
 
-  const ticketChannel = (await guild.channels.create(
-    `ticket-${user.username}`,
-    options
-  )) as TextChannel;
+  const ticketChannel = (await guild.channels.create(options)) as TextChannel;
 
-  const claimButton = new MessageButton()
+  const claimButton = new ButtonBuilder()
     .setCustomId("claim")
-    .setStyle("SUCCESS")
+    .setStyle(ButtonStyle.Success)
     .setLabel("Claim this ticket!")
     .setEmoji("✋");
-  const closeButton = new MessageButton()
+  const closeButton = new ButtonBuilder()
     .setCustomId("close")
-    .setStyle("DANGER")
+    .setStyle(ButtonStyle.Danger)
     .setLabel("Close this ticket!")
     .setEmoji("🗑️");
 
-  const row = new MessageActionRow().addComponents([claimButton, closeButton]);
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+    claimButton,
+    closeButton,
+  ]);
 
-  const ticketEmbed = new MessageEmbed();
+  const ticketEmbed = new EmbedBuilder();
   ticketEmbed.setTitle("Ticket Created");
   ticketEmbed.setDescription(`<@!${user.id}> opened a ticket for:\n${reason}`);
 

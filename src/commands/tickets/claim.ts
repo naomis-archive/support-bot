@@ -1,21 +1,18 @@
+/* eslint-disable jsdoc/require-param */
 import {
-  CommandInteraction,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  Embed,
   GuildMember,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
-import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
 /**
  * Handles the process of claiming a ticket.
- *
- * @param {BotInt} Bot The bot object.
- * @param {CommandInteraction} interaction The resulting interaction from clicking the claim button.
  */
 export const claimHandler: ButtonHandler = async (Bot, interaction) => {
   try {
@@ -46,33 +43,31 @@ export const claimHandler: ButtonHandler = async (Bot, interaction) => {
       return;
     }
 
-    const ticketEmbed = embeds[0] as MessageEmbed;
-    ticketEmbed.setFields([
-      {
-        name: "Claimed by:",
-        value: `<@${member.user.id}>`,
-      },
-    ]);
+    const ticketEmbed = embeds[0] as Embed;
+    const updatedEmbed = {
+      ...ticketEmbed,
+      fields: [{ name: "Claimed by:", value: `<@${member.user.id}>` }],
+    };
 
-    const claimButton = new MessageButton()
+    const claimButton = new ButtonBuilder()
       .setCustomId("claim")
-      .setStyle("SUCCESS")
+      .setStyle(ButtonStyle.Success)
       .setLabel("Claim this ticket!")
       .setEmoji("✋")
       .setDisabled(true);
-    const closeButton = new MessageButton()
+    const closeButton = new ButtonBuilder()
       .setCustomId("close")
-      .setStyle("DANGER")
+      .setStyle(ButtonStyle.Danger)
       .setLabel("Close this ticket!")
       .setEmoji("🗑️");
 
-    const row = new MessageActionRow().addComponents([
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       claimButton,
       closeButton,
     ]);
 
     await (message as Message).edit({
-      embeds: [ticketEmbed],
+      embeds: [updatedEmbed],
       components: [row],
     });
 
