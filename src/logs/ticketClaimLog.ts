@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { Colors, EmbedBuilder } from "discord.js";
 
 import { BotInt } from "../interfaces/BotInt";
 import { TicketDetailsInt } from "../interfaces/TicketDetailsInt";
@@ -15,8 +15,8 @@ export const ticketClaimLog = async (
   details: TicketDetailsInt
 ): Promise<void> => {
   try {
-    const ticketClaimEmbed = new MessageEmbed();
-    ticketClaimEmbed.setColor("YELLOW");
+    const ticketClaimEmbed = new EmbedBuilder();
+    ticketClaimEmbed.setColor(Colors.Yellow);
     ticketClaimEmbed.setTitle("Ticket Claimed");
     ticketClaimEmbed.setDescription(
       `${details.name} claimed by ${details.claimed}`

@@ -1,8 +1,9 @@
 import {
-  MessageActionRow,
-  Modal,
-  ModalActionRowComponent,
-  TextInputComponent,
+  ActionRowBuilder,
+  ModalBuilder,
+  ModalActionRowComponentBuilder,
+  TextInputBuilder,
+  TextInputStyle,
 } from "discord.js";
 
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
@@ -11,17 +12,17 @@ import { errorHandler } from "../../utils/errorHandler";
 /* eslint-disable-next-line jsdoc/require-jsdoc */
 export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
   try {
-    const ticketModal = new Modal()
+    const ticketModal = new ModalBuilder()
       .setCustomId("ticket-modal")
       .setTitle("Naomi's Ticket System");
-    const reasonInput = new TextInputComponent()
+    const reasonInput = new TextInputBuilder()
       .setCustomId("reason")
       .setLabel("Why are you opening this ticket?")
-      .setStyle("PARAGRAPH")
+      .setStyle(TextInputStyle.Paragraph)
       .setRequired(true);
 
     const actionRow =
-      new MessageActionRow<ModalActionRowComponent>().addComponents(
+      new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
         reasonInput
       );
     ticketModal.addComponents(actionRow);

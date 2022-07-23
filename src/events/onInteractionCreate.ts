@@ -1,4 +1,4 @@
-import { Interaction } from "discord.js";
+import { Interaction, InteractionType } from "discord.js";
 
 import { CommandList } from "../commands/CommandList";
 import { claimHandler } from "../commands/tickets/claim";
@@ -18,7 +18,7 @@ export const onInteractionCreate = async (
   Bot: BotInt,
   interaction: Interaction
 ): Promise<void> => {
-  if (interaction.isCommand()) {
+  if (interaction.isChatInputCommand()) {
     for (const Command of CommandList) {
       if (interaction.commandName === Command.data.name) {
         await Command.run(Bot, interaction);
@@ -27,7 +27,7 @@ export const onInteractionCreate = async (
     }
   }
 
-  if (interaction.isModalSubmit()) {
+  if (interaction.type === InteractionType.ModalSubmit) {
     await ticketModal(Bot, interaction);
   }
 

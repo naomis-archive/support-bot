@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { Colors, EmbedBuilder } from "discord.js";
 
 import { BotInt } from "../interfaces/BotInt";
 import { TicketDetailsInt } from "../interfaces/TicketDetailsInt";
@@ -15,13 +15,15 @@ export const ticketCreateLog = async (
   details: TicketDetailsInt
 ): Promise<void> => {
   try {
-    const ticketCreateEmbed = new MessageEmbed();
-    ticketCreateEmbed.setColor("RED");
+    const ticketCreateEmbed = new EmbedBuilder();
+    ticketCreateEmbed.setColor(Colors.Yellow);
     ticketCreateEmbed.setTitle("Ticket Created");
     ticketCreateEmbed.setDescription(details.details);
-    ticketCreateEmbed.addField("Type", details.type, true);
-    ticketCreateEmbed.addField("Project", details.project, true);
-    ticketCreateEmbed.addField("User", details.user, true);
+    ticketCreateEmbed.addFields([
+      { name: "Type", value: details.type, inline: true },
+      { name: "Project", value: details.project, inline: true },
+      { name: "User", value: details.user, inline: true },
+    ]);
 
     await Bot.logHook.send({ embeds: [ticketCreateEmbed] });
   } catch (err) {
