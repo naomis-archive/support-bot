@@ -45,7 +45,7 @@
     "discord.js": "^14.0.0",
     "dotenv": "^16.0.0",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsdoc": "^39.0.0",
+    "eslint-plugin-jsdoc": "^40.0.0",
     "winston": "^3.4.0"
   }
 }
