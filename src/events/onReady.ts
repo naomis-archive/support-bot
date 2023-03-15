@@ -1,10 +1,10 @@
-import { REST } from "@discordjs/rest";
 import {
-  RESTPostAPIApplicationCommandsJSONBody,
   APIApplicationCommandSubcommandOption,
+  REST,
+  RESTPostAPIApplicationCommandsJSONBody,
   Routes,
-} from "discord-api-types/v10";
-import { WebhookClient } from "discord.js";
+  WebhookClient,
+} from "discord.js";
 
 import { CommandList } from "../commands/CommandList";
 import { BotInt } from "../interfaces/BotInt";
