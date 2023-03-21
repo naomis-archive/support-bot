@@ -32,14 +32,14 @@
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
     "eslint": "8.36.0",
-    "eslint-config-prettier": "8.7.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
-    "prettier": "2.8.5",
+    "prettier": "2.8.6",
     "typescript": "5.0.2"
   },
   "dependencies": {
-    "@sentry/integrations": "7.44.0",
-    "@sentry/node": "7.44.0",
+    "@sentry/integrations": "7.44.2",
+    "@sentry/node": "7.44.2",
     "discord.js": "14.8.0",
     "dotenv": "16.0.3",
     "eslint-plugin-import": "2.27.5",
