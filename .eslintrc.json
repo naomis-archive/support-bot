@@ -69,5 +69,14 @@
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/commands/**/*.ts"],
+      "rules": {
+        "jsdoc/require-param": "off",
+        "jsdoc/require-jsdoc": "off"
+      }
+    }
+  ]
 }

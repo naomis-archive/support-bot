@@ -13,7 +13,6 @@ export const start: CommandInt = {
   data: new SlashCommandBuilder()
     .setName("start")
     .setDescription("Creates the ticket system instruction post."),
-  // eslint-disable-next-line jsdoc/require-jsdoc
   run: async (Bot, interaction) => {
     try {
       if (interaction.user.id !== Bot.botOwner) {
