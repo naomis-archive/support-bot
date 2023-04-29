@@ -9,7 +9,6 @@ import {
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
-/* eslint-disable-next-line jsdoc/require-jsdoc */
 export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
   try {
     const ticketModal = new ModalBuilder()
