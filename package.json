@@ -40,7 +40,7 @@
   "dependencies": {
     "@sentry/integrations": "7.50.0",
     "@sentry/node": "7.50.0",
-    "discord.js": "14.9.0",
+    "discord.js": "14.10.0",
     "dotenv": "16.0.3",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsdoc": "40.3.0",
