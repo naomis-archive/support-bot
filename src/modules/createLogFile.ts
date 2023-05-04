@@ -23,7 +23,7 @@ export const createLogFile = async (
 
     await writeFile(
       join(process.cwd(), "logs", `${channelId}.txt`),
-      `[${new Date().toLocaleString()}] - **TICKET CREATED**\n${content}\n[${new Date().toLocaleString()}] - ${user}: ${content}\n`
+      `[${new Date().toLocaleString()}] - **TICKET CREATED**\n[${new Date().toLocaleString()}] - ${user}: ${content}\n`
     );
   } catch (err) {
     await errorHandler("log file creation", err);
