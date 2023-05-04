@@ -104,7 +104,7 @@ export const ticketModal = async (
   ticketEmbed.setTitle("Ticket Created");
   ticketEmbed.setDescription(`<@!${user.id}> opened a ticket for:\n${reason}`);
 
-  await createLogFile(Bot, ticketChannel.id);
+  await createLogFile(Bot, ticketChannel.id, user.tag, reason);
 
   await ticketChannel.send({ embeds: [ticketEmbed], components: [row] });
   await interaction.editReply(
