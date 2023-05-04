@@ -44,7 +44,8 @@ export const claimHandler: ButtonHandler = async (Bot, interaction) => {
 
     const ticketEmbed = embeds[0] as Embed;
     const updatedEmbed = {
-      ...ticketEmbed,
+      title: ticketEmbed.title || "Lost the Title",
+      description: ticketEmbed.description || "Lost the Description",
       fields: [{ name: "Claimed by:", value: `<@${member.user.id}>` }],
     };
 
