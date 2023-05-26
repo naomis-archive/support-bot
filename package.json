@@ -44,6 +44,6 @@
     "dotenv": "16.0.3",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsdoc": "40.3.0",
-    "winston": "3.8.2"
+    "winston": "3.9.0"
   }
 }
