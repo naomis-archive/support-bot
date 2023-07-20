@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
+  SlashCommandBuilder,
 } from "discord.js";
 
 import { CommandInt } from "../../interfaces/CommandInt";
