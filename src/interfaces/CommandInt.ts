@@ -1,8 +1,8 @@
 import {
+  ChatInputCommandInteraction,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
-} from "@discordjs/builders";
-import { ChatInputCommandInteraction } from "discord.js";
+} from "discord.js";
 
 import { BotInt } from "./BotInt";
 
