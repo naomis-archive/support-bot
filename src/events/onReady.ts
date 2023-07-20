@@ -36,7 +36,7 @@ export const onReady = async (Bot: BotInt): Promise<void> => {
 
   logHandler.log("debug", "registered commands");
 
-  const hook = new WebhookClient({ url: process.env.DEBUG_HOOK as string });
+  const hook = new WebhookClient({ url: Bot.whUrl });
 
   await hook.send("Ticket bot online!");
 };
