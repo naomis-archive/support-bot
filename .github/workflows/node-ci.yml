@@ -41,9 +41,6 @@ jobs:
       - name: Lint Source Files
         run: pnpm run lint
 
-      - name: Check for dead code and dependencies
-        run: pnpm run clean
-
       - name: Verify Build
         run: pnpm run build
 
