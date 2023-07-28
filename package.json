@@ -42,7 +42,7 @@
     "@sentry/node": "7.60.1",
     "discord.js": "14.11.0",
     "dotenv": "16.3.1",
-    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-import": "2.28.0",
     "eslint-plugin-jsdoc": "40.3.0",
     "winston": "3.10.0"
   }
