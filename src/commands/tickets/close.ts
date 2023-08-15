@@ -1,20 +1,11 @@
-import {
-  CommandInteraction,
-  GuildMember,
-  EmbedBuilder,
-  TextChannel,
-} from "discord.js";
+import { GuildMember, EmbedBuilder, TextChannel } from "discord.js";
 
-import { BotInt } from "../../interfaces/BotInt";
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { generateLogs } from "../../modules/generateLogs";
 import { errorHandler } from "../../utils/errorHandler";
 
 /**
  * Handles closing a ticket.
- *
- * @param {BotInt} Bot The bot instance.
- * @param {CommandInteraction} interaction The resulting interaction from clicking the close button.
  */
 export const closeHandler: ButtonHandler = async (Bot, interaction) => {
   try {

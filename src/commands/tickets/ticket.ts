@@ -9,6 +9,9 @@ import {
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
 import { errorHandler } from "../../utils/errorHandler";
 
+/**
+ * Generates the modal for opening a new ticket.
+ */
 export const ticketHandler: ButtonHandler = async (Bot, interaction) => {
   try {
     const ticketModal = new ModalBuilder()
